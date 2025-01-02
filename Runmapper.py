@@ -1,11 +1,47 @@
 import os
-import tkinter as tk
-from tkinter import simpledialog, messagebox, filedialog, ttk
-import folium
-import gpxpy
-import webbrowser
-from garminconnect import Garmin
-import configparser
+import subprocess
+import sys
+
+def install(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+try:
+    import tkinter as tk
+    from tkinter import simpledialog, messagebox, filedialog, ttk
+except ImportError:
+    install('tkinter')
+    import tkinter as tk
+    from tkinter import simpledialog, messagebox, filedialog, ttk
+
+try:
+    import folium
+except ImportError:
+    install('folium')
+    import folium
+
+try:
+    import gpxpy
+except ImportError:
+    install('gpxpy')
+    import gpxpy
+
+try:
+    import webbrowser
+except ImportError:
+    install('webbrowser')
+    import webbrowser
+
+try:
+    from garminconnect import Garmin
+except ImportError:
+    install('garminconnect')
+    from garminconnect import Garmin
+
+try:
+    import configparser
+except ImportError:
+    install('configparser')
+    import configparser
 
 class GarminApp:
     def __init__(self, root):
